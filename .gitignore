@@ -1,0 +1,13 @@
+*.dat
+*.png
+*.xlsx
+*__pycache__*
+*.pyc
+*.egg
+fixthejet.egg-info
+/dist
+/build
+/archive
+*.log
+*.logxx
+*.csv
