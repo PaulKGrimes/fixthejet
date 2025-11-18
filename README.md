@@ -46,6 +46,8 @@ Package requisites are in requirements.txt
 
 ## Example 1
 
+Default conversion from `jet` to `viridis`
+
 `fixthejet --input .\images\SST.png --output .\images\SST_viridis.png`
 
 ### Input file
@@ -56,6 +58,8 @@ Package requisites are in requirements.txt
 
 
 ## Example 2
+
+Converting to a color mapt other than `viridis`.
 
 `python fixthejet.py --input .\images\cone.jpg --output .\images\cone_inferno.jpg --cmap_out inferno` 
 
@@ -70,6 +74,8 @@ Package requisites are in requirements.txt
 
 ## Example 3
 
+Converting from a color map other than `jet`.
+
 `fixthejet --input .\images\SST_viridis.png --output .\images\SST_plasma.png --cmap_in viridis --cmap_out plasma`
 
 ### Input file
@@ -81,7 +87,10 @@ Package requisites are in requirements.txt
 
 ## Example 4
 
-`fixthejet.exe --input .\images\cube.png --output .\images\cube_plasma.png --cmap_out plasma --cbar_extent 463 483 32 371`
+Reading the color map from the image's color scale bar.  Note that the width of the color bar that is read is smaller than the actual bar in
+order to avoid the tick marks.
+
+`fixthejet.exe --input .\images\cube.png --output .\images\cube_plasma.png --cmap_out plasma --cbar_extent 463 473 32 371`
 
 Note that the output for this example demonstrates some of the artefacts that will appear if the colors in the image aren't strictly in the colormap.
 The input image here appears to have pixels that are shaded as well as color coded.
