@@ -82,10 +82,28 @@ Converting from a color map other than `jet`.
 ![input3](images/SST_viridis.png)
 
 ### Output file
-![input3](images/SST_plasma.png) 
-
+![output3](images/SST_plasma.png) 
 
 ## Example 4
+
+Reading the color map from the image's color scale bar.  Note that the width of the color bar that is read is smaller than the actual bar in
+order to avoid the tick marks.
+
+`fixthejet.exe --input .\images\Beam_B3FFBM.png --output .\images\Beam_B3FFBM_viridis.png --cbar_extent 812 857 77 730`
+
+### Input file
+![input4](images/Beam_B3FFBM.png)
+
+### Output file
+![output4](images/Beam_B3FFBM_viridis.png) 
+
+If we assumed that the input color map was `jet`, which is not quite the same as the actual color map, then we would get output that looks
+like this:
+
+### Output file
+![badoutput4](images/Beam_B3FFBM_viridis_bad.png) 
+
+## Example 5
 
 Reading the color map from the image's color scale bar.  Note that the width of the color bar that is read is smaller than the actual bar in
 order to avoid the tick marks.
@@ -97,11 +115,11 @@ The input image here appears to have pixels that are shaded as well as color cod
 
 ### Input file
 
-![input4](images/cube.png)
+![input5](images/cube.png)
 
 ### Output file
 
-![output4](images/cube_plasma.png)
+![output5](images/cube_plasma.png)
 
 
 ## License
