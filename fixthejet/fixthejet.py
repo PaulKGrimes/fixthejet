@@ -40,6 +40,14 @@ def build_parser():
 
 
 def read_image(file_name):
+    '''Read the image using PIL, and convert to RGBA floating point
+    
+    arguments:
+        file_name (str): path/name of the input file to read.
+        
+    returns:
+        numpy.ndarray: (<height>, <width>, 4) sized array holding the image.
+    '''
     img = Image.open(file_name)
     img = img.convert("RGBA")
     
@@ -57,9 +65,12 @@ def get_cmaps(img, options):
     
     arguments:
         img (np.ndarray) : the input image data in an numpy array.
-        options (dict) : the command line options'''
+        options (dict) : the command line options
+        
+    returns:
+        tuple of two matplotlib colormaps'''
     outmap = plt.get_cmap(options.cout)
-    if 'cbar_extent' in options:
+    if options.cbar_extent:
         inmap = get_cmap_from_img(img, options.cbar_extent)
     else:
         inmap = plt.get_cmap(options.cin)
@@ -76,11 +87,11 @@ def get_cmap_from_img(img, cbar_extents):
     averaged in the narrow dimension.
     
     arguments:
-        img (np.ndarray) : the input image data in an numpy array.
+        img (numpy.ndarray) : (<height>, <width>, 4) sized array holding the image.
         cbar_extents (list of 4 integers) : the location of the colorbar in the input image.
         
     returns:
-        matplotlib.cmap
+        matplotlib.cmap : the derived matplotlib colormap
     '''
     left = cbar_extents[0]
     right = cbar_extents[1]
@@ -105,7 +116,18 @@ def get_cmap_from_img(img, cbar_extents):
 
 
 def convert_image(img, cin, cout, d=0.2, sub=256):
+    '''Convert img from colormap <cin> to colormap <cout>.
     
+    arguments:
+        img (numpy.ndarray) : (<height>, <width>, 4) sized array holding the image.
+        cin (matplotlib.ColorMap) : The colormap to convert from.
+        cout (matplotlib.ColorMap) : The colormap to convert to.
+        d (float): maximum distance in the KDtree used to determine data values in the image)
+        sub (int): number of divisions in the input colormap
+        
+    returns:
+        numpy.ndarray : the output image of shape (<height>, <width>, 4)
+    '''
     print(f"Converting {cin.name} to {cout.name}")
     oshape = img.shape
 
@@ -119,17 +141,18 @@ def convert_image(img, cin, cout, d=0.2, sub=256):
     indices = indices.reshape(oshape[:2])
     remapped = indices
     indices.max()
-    mask = (res[0].reshape(oshape[:2]) > 0.9)
+    mask = (res[0].reshape(oshape[:2]) > 1.0)
     remapped = remapped / (l-1)
     msk = [mask]*3
     msk.append(np.ones_like(mask))
     mask = np.stack(msk, axis=-1)
     blend = np.where(mask, img, cout(remapped).astype(float)[:,:,:4])
     
-    return img, blend
+    return blend
 
     
 def save_image(blend, path):
+    '''Wrapper around matplotlib.image.imsave to reorder arguments'''
     mpimg.imsave(path, blend)
 
 
@@ -144,7 +167,7 @@ def main():
     
     cinmap, coutmap = get_cmaps(img, options)
 
-    img, blend = convert_image(img, cinmap, coutmap)
+    blend = convert_image(img, cinmap, coutmap)
     try:
         save_image(blend, options.output)
     except:

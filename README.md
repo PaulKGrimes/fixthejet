@@ -54,21 +54,10 @@ Package requisites are in requirements.txt
 ### Output file
 ![output1](images/SST_viridis.png)
 
+
 ## Example 2
 
-`fixthejet.exe --input .\images\cube.png --output .\images\cube_plasma.png --cmap_out plasma` 
-
-### Input file
-
-![input2](images/cube.png)
-
-### Output file
-
-![output2](images/cube_plasma.png)
-
-## Example 3
-
-`python fixthejet.py --input .\images\cone.jpg --output .\images\cone_inferno.jpg --colormap inferno` 
+`python fixthejet.py --input .\images\cone.jpg --output .\images\cone_inferno.jpg --cmap_out inferno` 
 
 ### Input file
 
@@ -77,6 +66,33 @@ Package requisites are in requirements.txt
 ### Output file
 
 ![output2](images/cone_inferno.jpg)
+
+
+## Example 3
+
+`fixthejet --input .\images\SST_viridis.png --output .\images\SST_plasma.png --cmap_in viridis --cmap_out plasma`
+
+### Input file
+![input3](images/SST_viridis.png)
+
+### Output file
+![input3](images/SST_plasma.png) 
+
+
+## Example 4
+
+`fixthejet.exe --input .\images\cube.png --output .\images\cube_plasma.png --cmap_out plasma --cbar_extent 463 483 32 371`
+
+Note that the output for this example demonstrates some of the artefacts that will appear if the colors in the image aren't strictly in the colormap.
+The input image here appears to have pixels that are shaded as well as color coded.
+
+### Input file
+
+![input4](images/cube.png)
+
+### Output file
+
+![output4](images/cube_plasma.png)
 
 
 ## License
