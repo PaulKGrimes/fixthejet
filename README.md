@@ -59,7 +59,7 @@ Default conversion from `jet` to `viridis`
 
 ## Example 2
 
-Converting to a color mapt other than `viridis`.
+Converting to a color map other than `viridis`.
 
 `python fixthejet.py --input .\images\cone.jpg --output .\images\cone_inferno.jpg --cmap_out inferno` 
 
